@@ -18,7 +18,7 @@ How to use
 
 basic loading podcast in jPlayer playlist.
 ```
-loadPodcast('http://your-podcast-url.xml')
+loadPodcast('http://your-podcast-url.xml');
 ```
 
 Load playlist with Drop down
