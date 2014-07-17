@@ -16,7 +16,7 @@ Demo
 How to use
 ---------------
 
-just add jQuery and JQHand js file to your project.
+basic loading podcast in jPlayer playlist.
 ```
 loadPodcast('http://your-podcast-url.xml')
 ```
