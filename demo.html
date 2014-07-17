@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>jPlayer Playlist Example - jsFiddle demo by onigetoc</title>
+    <link rel="stylesheet" type="text/css" href="http://jplayer.org/latest/skin/pink.flag/jplayer.pink.flag.css">   
+
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+	<script type='text/javascript' src="http://jplayer.org/latest/js/jquery.jplayer.min.js"></script>
+    <script type='text/javascript' src="http://jplayer.org/latest/js/jplayer.playlist.min.js"></script> 
+ 
+<style type='text/css'>
+.jp-playlist {
+	max-height: 200px;
+	width: 100%;
+	height: 100%;
+	padding-right: 20px;
+	overflow-x: hidden;
+	overflow-y: auto;
+		
+	/*For mobile scroll*/
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+</style>
+
+<script type='text/javascript'>
+$(document).ready(function () {
+	
+	var myPlaylist = new jPlayerPlaylist({
+        jPlayer: "#jquery_jplayer_1",
+        cssSelectorAncestor: "#jp_container_1",
+    }, 
+		
+		// On loading get the first option value selected in the drop down
+		loadPodcast( $("#drop-playlist option:selected").val() ), 
+	
+	{
+		
+		playlistOptions: {autoPlay: true},
+		
+		swfPath: "http://jplayer.org/latest/js/Jplayer.swf",
+        supplied: "oga, mp3, m4a, m4v, mp4",
+        wmode: "window",
+        smoothPlayBar: true,
+        keyEnabled: true,
+		/* Need it to show podcast poster*/
+		size: {
+            width: "243px",
+            height: "243px",
+            cssClass: "jp-poster"
+        }
+    });
+    //$("#jplayer_inspector_1").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
+
+
+	/*************** PODPARSER *******************/
+
+	// Drop down playlist
+	$("#drop-playlist").change(function () {
+        var Podurl = this.value;
+        //var Podurl = $('#pick').val();
+		loadPodcast(Podurl);
+    });
+
+	/// Load form
+	$("#loadPlaylist").submit(function (e) {
+		e.preventDefault();
+		
+		var Podurl = $("#Podurl").val();
+		loadPodcast(Podurl);
+	
+	});	
+	
+	$("#playlist2").click(function() {
+		myPlaylist.play(1); // play song 2
+	});
+	
+	// Call podparser php
+	function loadPodcast(Podurl) {
+	
+		$.getJSON("assets/podparser.php?callback=?&Podurl="+Podurl, {},function (playlist){		
+			console.log(playlist);			
+			myPlaylist.setPlaylist(playlist);
+		});
+	
+	}
+	//end PodParser 
+
+}); // Ready end
+
+
+
+</script>
+
+
+</head>
+<body>
+  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+  
+<div id="jp_container_1" class="jp-audio">
+    <div class="jp-type-playlist">
+        <div class="jp-gui jp-interface">
+            <ul class="jp-controls">
+                <li><a href="javascript:;" class="jp-previous" tabindex="1">previous</a>
+                </li>
+                <li><a href="javascript:;" class="jp-play" tabindex="1">play</a>
+                </li>
+                <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a>
+                </li>
+                <li><a href="javascript:;" class="jp-next" tabindex="1">next</a>
+                </li>
+                <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a>
+                </li>
+                <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a>
+                </li>
+                <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a>
+                </li>
+                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a>
+                </li>
+            </ul>
+            <div class="jp-progress">
+                <div class="jp-seek-bar">
+                    <div class="jp-play-bar"></div>
+                </div>
+            </div>
+            <div class="jp-volume-bar">
+                <div class="jp-volume-bar-value"></div>
+            </div>
+            <div class="jp-current-time"></div>
+            <div class="jp-duration"></div>
+            <ul class="jp-toggles">
+                <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a>
+                </li>
+                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle off</a>
+                </li>
+                <li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a>
+                </li>
+                <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a>
+                </li>
+            </ul>
+        </div>
+        <div class="jp-playlist">
+            <ul>
+                <li></li>
+            </ul>
+        </div>
+        <div class="jp-no-solution">	<span>Update Required</span>
+To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.</div>
+    </div>
+</div>
+<br>
+<!--Load Podcast -->
+<div class="podparser-loader" style="position:absolute; top:20px; left:300px;">
+<h1>jPlayer Podcast Player</h1>
+
+DropDown load Podcast Playlist:
+<br>
+<select id="drop-playlist" style="width: 240px;">
+    <option value="">Select Podcast</option>
+    <option value="http://feeds.twit.tv/twit" selected>This Week in Tech</option>
+    <option value="http://podcast.armadamusic.com/asot/podcast.xml">A State of Trance Official Podcast</option>
+    <option value="http://downloads.bbc.co.uk/podcasts/worldservice/globalnews/rss.xml">BBC News</option>
+    <option value="http://www.thecurrent.org/collection/song-of-the-day/rss">Current Song of the Day</option>
+    <option value="http://www.foxsportsradio.com/podcast/itunes/Jay_Mohr_Sports_Hours_itunes.xml">Jay Mohr Sports</option>
+    <option value="http://nerdist.libsyn.com/rss">The Nerdist</option>
+    <option value="http://feeds.feedburner.com/tedtalks_video">Video Podcast: Ted Talk</option>
+    <option value="http://www.france24.com/static/podcast/fr/REPORTAGES/reportages-fr.xml">Video Podcast: France 24</option>
+</select>
+<br>
+<br>
+<form id="loadPlaylist" action="">Enter Podcast URL:
+<br>
+    <input name="Podurl" type="text" id="Podurl" value="http://www.hbo.com/podcasts/billmaher/podcast.xml" size="50">
+    <input type="submit" value="Submit">
+</form>
+<br>
+<button type="button" id="playlist2" >Play no. 2</button>
+<!--Load Podcast end -->
+<br><br><br>
+<div><a href="http://jsfiddle.net/onigetoc/2mb5C/show" target="_blank">Find Itune podcast feed url</a></div>
+</div>
+
+</body>
+
+</html>
+
