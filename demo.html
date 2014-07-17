@@ -59,7 +59,6 @@ $(document).ready(function () {
 	// Drop down playlist
 	$("#drop-playlist").change(function () {
         var Podurl = this.value;
-        //var Podurl = $('#pick').val();
 		loadPodcast(Podurl);
     });
 
@@ -154,9 +153,8 @@ To play the media you will need to either update your browser to a recent versio
 <div class="podparser-loader" style="position:absolute; top:20px; left:300px;">
 <h1>jPlayer Podcast Player</h1>
 
-DropDown load Podcast Playlist:
-<br>
-<select id="drop-playlist" style="width: 240px;">
+<p>DropDown load Podcast Playlist: <br>
+  <select id="drop-playlist" style="width: 240px;">
     <option value="">Select Podcast</option>
     <option value="http://feeds.twit.tv/twit" selected>This Week in Tech</option>
     <option value="http://podcast.armadamusic.com/asot/podcast.xml">A State of Trance Official Podcast</option>
@@ -166,14 +164,17 @@ DropDown load Podcast Playlist:
     <option value="http://nerdist.libsyn.com/rss">The Nerdist</option>
     <option value="http://feeds.feedburner.com/tedtalks_video">Video Podcast: Ted Talk</option>
     <option value="http://www.france24.com/static/podcast/fr/REPORTAGES/reportages-fr.xml">Video Podcast: France 24</option>
-</select>
-<br>
-<br>
+  </select>
+  </p>
+<p>-------------------------------------<br>
+</p>
 <form id="loadPlaylist" action="">Enter Podcast URL:
-<br>
+  <br>
     <input name="Podurl" type="text" id="Podurl" value="http://www.hbo.com/podcasts/billmaher/podcast.xml" size="50">
     <input type="submit" value="Submit">
 </form>
+<br>
+-------------------------------------
 <br>
 <button type="button" id="playlist2" >Play no. 2</button>
 <!--Load Podcast end -->

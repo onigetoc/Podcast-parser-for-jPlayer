@@ -20,6 +20,23 @@ just add jQuery and JQHand js file to your project.
 ```
 loadPodcast('http://your-podcast-url.xml')
 ```
+
+Load playlist with Drop down
+```
+<select id="drop-playlist">
+	<option value="">Select Podcast</option>
+    <option value="http://feeds.twit.tv/twit" selected>This Week in Tech</option>
+    <option value="http://downloads.bbc.co.uk/podcasts/worldservice/globalnews/rss.xml">BBC News</option>
+</select>
+```
+
+```
+// Drop down playlist
+$("#drop-playlist").change(function () {
+    var Podurl = this.value;
+	loadPodcast(Podurl);
+});
+```
 More way to load podcast width jQuery in the demo file.
 
 Quick start
