@@ -10,11 +10,8 @@ $url = $_GET["Podurl"];
 		}*/
 	$pod->pod = str_replace('itunes:', '', $pod->pod);
 	$pod->pod = simplexml_load_string($pod->pod);
-	
 
-//$pod = str_replace('itunes:', '', $pod);
-
-//$image = $pod->channel['itunes:summary']->image['url']; //GC chanel image
+//$image = $pod->channel['itunes:summary']->image['url']; //GC channel image
 //$title = $pod->channel->title; // podcast title
 $main_poster = $pod->pod->channel->image['href'];
 if(!$main_poster) 
