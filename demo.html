@@ -40,7 +40,7 @@ $(document).ready(function () {
 		playlistOptions: {autoPlay: true},
 		
 		swfPath: "js/Jplayer.swf",
-        supplied: "oga, mp3, m4a, m4v, mp4",
+        supplied: "mp3,oga,m4a,m4v,mp4",
 		solution: "flash, html",
         wmode: "window",
         smoothPlayBar: true,
@@ -87,10 +87,50 @@ $(document).ready(function () {
 	}
 	
 	//end PodParser 
+	
+	// Test add song and play
+	$("#addToPlaylist").submit(function (e) {
+		e.preventDefault();
+		
+		var Podurl = $("#addToPlaylist-Input").val();
+		
+		loadPodcast(Podurl);
+		
+		var contentType = getContentType(Podurl);			
+		console.log(contentType);
+		
+		var filename = Podurl.match(/([^\/]+)(?=\.\w+$)/)[0];
+		filename = filename.replace(/-/g, ' ');
+		filename = filename.replace(/_/g, ' ');
+		
+		var jpadd = {};
+		jpadd[contentType] = Podurl;
+		jpadd.title = filename;
+		jpadd.artist = "Test artist";
+		//jpadd.poster = this_poster;
+		
+		myPlaylist.add(jpadd, true);	
+	});	
+
+
+		
+		function getContentType(url) {
+		  var ext = url.split('.').pop();
+
+			if (ext) {
+			  //return formats[i].type + "/" + ext;
+				if ( (ext == "mp4") || (ext == "webm") ) ext = "m4v";
+				if (ext == "ogg") ext = "oga";
+			  
+				return ext;
+			}
+
+		  // it doesn't matter now, as it's unsupported.
+		  return "";
+		}
+
 
 }); // Ready end
-
-
 
 </script>
 
@@ -139,6 +179,8 @@ $(document).ready(function () {
                 </li>
                 <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a>
                 </li>
+<!--<li><a class="jp-full-screen" title="full screen" tabindex="1" href="javascript:;">full screen</a></li>
+                <li><a class="jp-restore-screen" title="restore screen" tabindex="1" href="javascript:;">restore screen</a></li> -->
             </ul>
         </div>
         <div class="jp-playlist">
@@ -176,7 +218,14 @@ To play the media you will need to either update your browser to a recent versio
     <input type="submit" value="Submit">
 </form>
 <br>
--------------------------------------
+<p>-------------------------------------<br>
+<form id="addToPlaylist" action="">Enter audio URL:
+  <br>
+    <input name="addToPlaylist-Input" type="text" id="addToPlaylist-Input" value="http://www.jplayer.org/audio/mp3/TSP-05-Your_face.mp3" size="50">
+    <input type="submit" value="Submit">
+</form>
+<br>
+<p>-------------------------------------<br>
 <br>
 <button type="button" id="playlist2" >Play no. 2</button>
 <!--Load Podcast end -->
