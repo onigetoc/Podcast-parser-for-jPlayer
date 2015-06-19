@@ -1,7 +1,7 @@
 Podcast parser for jPlayer
 ========
 
-Podcast parser for jPlayer
+Podcast parser for jPlayer ( XML RSS media )
 
 =================
 
