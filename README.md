@@ -5,7 +5,7 @@ Podcast parser for jPlayer
 
 =================
 
-+ Play all podcast with media: ogg, mp3, m4a, m4v, mp4, 
++ Play all podcast XML RSS with media (audio|video) : ogg, mp3, m4a, m4v, mp4, 
 + Show podcast poster.
 + You can load any playlist with jQuery.
 
