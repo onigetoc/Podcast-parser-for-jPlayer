@@ -3,6 +3,8 @@
 
 $url = $_GET["Podurl"];
 
+    $pod = new stdClass();
+
 	$pod->pod = @file_get_contents($url);
 	/*if(!$this->pod = @file_get_contents($url))
 		{
