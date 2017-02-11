@@ -11,7 +11,7 @@ Podcast parser for jPlayer ( XML RSS media )
 
 Demo
 -----------
-+ Demo: http://scripts.toolurl.com/audio/Podcast-parser-for-jPlayer/demo.html
++ Demo: http://codesniff.com/scripts/audio/Podcast-parser-for-jPlayer-master/demo.html
 
 How to use
 ---------------
