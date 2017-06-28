@@ -29,6 +29,7 @@ $items = $pod->pod->channel->item;
 
 $i = 0;
 $data = array();
+$timestamps = array();
 foreach($items as $item) {  //loop over elements you want to return
 	
 	$datum = parse_url($item->enclosure['url']);
@@ -47,7 +48,9 @@ foreach($items as $item) {  //loop over elements you want to return
 	$author = $item->author;
 	if(!$author) $author = $main_author;
 	
-	$tmp = str_replace(" ","",$item->pubDate);
+	$pubDate = $item->pubDate['0'];
+	$timestamp = strtotime($pubDate);
+	$timestamps[] = $timestamp;
 	$data[] = array(
         'title' => (string)$item->title,
         $type => (string)$item->enclosure['url'],//replace this with the XML elements you want to get
@@ -58,9 +61,7 @@ foreach($items as $item) {  //loop over elements you want to return
     );
 	if (++$i == 20) break;// change this to the number of elements you want to get
 }
-
-array_multisort($data,SORT_DESC); //Order by date
-// Order by date help: http://stackoverflow.com/questions/20662389/is-there-a-way-to-sort-by-pubdate-in-descending-order
+array_multisort($timestamps,SORT_DESC,$data); //Order by date
 
 $jsdata = ($_GET['callback'].'('.json_encode($data).');');
 echo htmlspecialchars($jsdata, ENT_NOQUOTES, 'utf-8'); // return JSON wrapped in callback
