@@ -3,7 +3,7 @@
 
 $url = $_GET["Podurl"];
 $limit = $_GET["limit"];
-if(!limit) $limit = 20;
+if(!$limit) $limit = 20;
 
     $pod = new stdClass();
 
