@@ -2,6 +2,8 @@
 //header('Access-Control-Allow-Origin: *');
 
 $url = $_GET["Podurl"];
+$limit = $_GET["limit"];
+if(!limit) $limit = 20;
 
     $pod = new stdClass();
 
@@ -59,7 +61,7 @@ foreach($items as $item) {  //loop over elements you want to return
 		'poster' => (string)$poster,
 		'artist' => (string)$author,
     );
-	if (++$i == 20) break;// change this to the number of elements you want to get
+	if (++$i == $limit) break;// change this to the number of elements you want to get
 }
 array_multisort($timestamps,SORT_DESC,$data); //Order by date
 
